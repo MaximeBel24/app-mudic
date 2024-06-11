@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:learn_music/controller/playlist_controller.dart';
+import 'package:learn_music/model/enums/playlist.dart';
 import 'package:learn_music/model/raw_model/album.dart';
 
 class AlbumViewCell extends StatelessWidget {
@@ -12,7 +14,13 @@ class AlbumViewCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return PlaylistController(
+              playlist: album.songs,
+              title: album.title,
+              type: Playlist.album
+          );
+        }));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
