@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_music/model/raw_model/bar_choice.dart';
-import 'package:learn_music/views/masic_view.dart';
+import 'package:learn_music/views/music_view.dart';
 
 class Home extends StatefulWidget {
   @override

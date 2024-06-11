@@ -17,7 +17,7 @@ class ArtistContainer extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Text("Artistes", style: GoogleFonts.signika(fontSize: 20)),
+          Text("Artistes : ", style: GoogleFonts.signika(fontSize: 20)),
           Container(
             height: 90,
             child: ListView.builder(

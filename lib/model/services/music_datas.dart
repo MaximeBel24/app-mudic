@@ -10,6 +10,7 @@ class MusicDatas {
   Artist tupac = Artist(name: "2pac", urlImage: "https://arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/ZRUB7IELF4RAUO4ZRV5TNJVRVQ.jpg");
   Artist smashing = Artist(name: "Smashing Pumpkins", urlImage: "https://www.rollingstone.fr/wp-content/uploads/2018/08/SmashingPumpkins.jpg");
   Artist amadeus = Artist(name: "Mozart", urlImage: "https://www.musicologie.org/Biographies/m/mozart.jpg");
+  Artist metallica = Artist(name: "Metallica", urlImage: "https://www.webstickersmuraux.com/fr/img/as1mu153a-jpg/folder/products-listado-merchant/autocollants-metallica-rock--metal.jpg");
 
 
   //Music
@@ -74,11 +75,31 @@ class MusicDatas {
     ];
   }
 
+  List<Song> metallicas() {
+    Genre genre = Genre.metal;
+    MediaType type = MediaType.internet;
+    String album = "Master of Puppets";
+    String thumb = "https://example.com/metallica_master_of_puppets.jpg";
+    Artist artist = metallica;
+
+    return [
+      Song(id: 31, title: "Battery", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+      Song(id: 32, title: "Master of Puppets", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+      Song(id: 33, title: "The Thing That Should Not Be", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+      Song(id: 34, title: "Welcome Home (Sanitarium)", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+      Song(id: 35, title: "Disposable Heroes", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+      Song(id: 36, title: "Leper Messiah", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+      Song(id: 37, title: "Orion", album: album, path: "", mediaType: type, thumb: thumb, genre: genre, artist: artist),
+    ];
+  }
+
+
   List<Song> allDatas() {
     List<Song> all = [];
     all.addAll(eminemSongs());
     all.addAll(tuPac());
     all.addAll(smash());
+    // all.addAll(metallicas());
     all.add(mozart);
     return all;
   }

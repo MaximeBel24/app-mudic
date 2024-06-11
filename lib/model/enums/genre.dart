@@ -2,5 +2,6 @@ enum Genre {
   rap,
   rock,
   pop,
-  classic
+  classic,
+  metal
 }
