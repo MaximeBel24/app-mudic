@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_music/model/bar_choice.dart';
+import 'package:learn_music/model/raw_model/bar_choice.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class HomeState extends State<Home> {
                     Icon(Icons.settings)
                   ],
                 ),
-                Text("MaxTube")
+                items[currentIndex].titleForAppBar
               ],
             ),
           ),
