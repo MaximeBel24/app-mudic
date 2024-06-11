@@ -36,7 +36,10 @@ class PlaylistController extends StatelessWidget {
                         title: Text(playlist[index].title),
                         trailing: const Icon(Icons.play_circle),
                         onTap: () {
-                          final route = MaterialPageRoute(builder: ((context) => PlayerController()));
+                          final route = MaterialPageRoute(builder: ((context) => PlayerController(
+                            songToPlay: playlist[index],
+                            playlist: playlist,
+                          )));
                           Navigator.push(context, route);
                         },
                       );
