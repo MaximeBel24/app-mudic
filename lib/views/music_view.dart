@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_music/views/list_containers/albums_container.dart';
 import 'package:learn_music/views/list_containers/artist_container.dart';
+import 'package:learn_music/views/list_containers/genre_container.dart';
 
 class MusicView extends StatelessWidget {
   @override
@@ -14,6 +15,7 @@ class MusicView extends StatelessWidget {
           const Divider(),
           AlbumsContainer(),
           const Divider(),
+          GenreContainer()
         ],
       ),
     );

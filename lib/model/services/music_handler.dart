@@ -1,5 +1,6 @@
 import 'package:learn_music/model/services/music_datas.dart';
 
+import '../enums/genre.dart';
 import '../raw_model/album.dart';
 import '../raw_model/artist.dart';
 
@@ -29,6 +30,15 @@ class MusicHandler {
       if (!albums.contains(newAlbum)) albums.add(newAlbum);
     }
     return albums;
+  }
+
+  List<Genre> allGenres() {
+    List<Genre> genres = [];
+    final all = datas.allDatas();
+    for (var song in all) {
+      if (!genres.contains(song.genre)) genres.add(song.genre);
+    }
+    return genres;
   }
 
 }
