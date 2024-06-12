@@ -98,7 +98,10 @@ class PlayerControllerState extends State<PlayerController> {
 
   onForwardPressed(){}
 
-  onPositionChanged(double newPosition) {}
+  onPositionChanged(double newPosition) {
+    final newDuration = Duration(seconds: newPosition.toInt());
+    audioPlayer.seek(newDuration);
+  }
 
   Future<String> pathForInApp() async {
     String string = "";
@@ -133,9 +136,23 @@ class PlayerControllerState extends State<PlayerController> {
     });
   }
 
+  onDurationChange(Duration duration) {
+    setState(() {
+      maxDuration = duration;
+    });
+  }
+
+  onAudioPositionChanged(Duration newPosition) {
+    setState(() {
+      position = newPosition;
+    });
+  }
+
   setupPlayer() async {
     audioPlayer = AudioPlayer();
     audioPlayer.onPlayerStateChanged.listen(onStateChange);
+    audioPlayer.onDurationChanged.listen(onDurationChange);
+    audioPlayer.onPositionChanged.listen(onAudioPositionChanged);
     final url = (song.mediaType == MediaType.internet) ? song.path : await pathForInApp();
     await audioPlayer.play(UrlSource(url));
   }
