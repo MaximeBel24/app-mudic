@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learn_music/controller/player_controller.dart';
@@ -39,6 +41,7 @@ class PlaylistController extends StatelessWidget {
                           final route = MaterialPageRoute(builder: ((context) => PlayerController(
                             songToPlay: playlist[index],
                             playlist: playlist,
+                            backgroundColor: Color.fromRGBO(Random().nextInt(256), Random().nextInt(256), Random().nextInt(256), 1),
                           )));
                           Navigator.push(context, route);
                         },

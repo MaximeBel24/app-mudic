@@ -12,6 +12,8 @@ class PlayerView extends StatelessWidget {
    final Duration position;
    final bool shuffle;
    final bool repeat;
+   final IconData playPauseIcon;
+   final Color backgroundColor;
 
    final Function() onRepeatPressed;
    final Function() onShufflePressed;
@@ -27,6 +29,8 @@ class PlayerView extends StatelessWidget {
      required this.position,
      required this.shuffle,
      required this.repeat,
+     required this.playPauseIcon,
+     required this.backgroundColor,
 
      required this.onRepeatPressed,
      required this.onShufflePressed,
@@ -40,9 +44,9 @@ class PlayerView extends StatelessWidget {
   Widget build(BuildContext context) {
      Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: bgDarkRed,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: bgDarkRed,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(song.title),
       ),
@@ -72,7 +76,7 @@ class PlayerView extends StatelessWidget {
             Text(song.title, style: GoogleFonts.signika(fontWeight: FontWeight.bold, fontSize: 25)),
             Card(
               child: Container(
-                color: bgDarkRed,
+                color: backgroundColor.withOpacity(0.75),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
@@ -86,7 +90,7 @@ class PlayerView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(padding: padding, child: IconButton(icon: const Icon(Icons.fast_rewind), onPressed: onRewindPressed,),),
-                            Padding(padding: padding, child: IconButton(icon: const Icon(Icons.play_arrow), onPressed: onPlayPausePressed,),),
+                            Padding(padding: padding, child: IconButton(icon: Icon(playPauseIcon), onPressed: onPlayPausePressed,),),
                             Padding(padding: padding, child: IconButton(icon: const Icon(Icons.fast_forward), onPressed: onForwardPressed,),)
                           ],
                         ),
