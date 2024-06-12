@@ -20,11 +20,11 @@ class GenreCell extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Color.fromRGBO(Random().nextInt(256), Random().nextInt(256), Random().nextInt(256), 1)
+          color: Colors.white10
         ),
         child: Center(
           child: Text(
-            genre.name, style: GoogleFonts.signika(fontSize: 20, color: Colors.blueGrey),
+            genre.name, style: GoogleFonts.signika(fontSize: 20, color: Colors.red),
           ),
         ),
       ),
