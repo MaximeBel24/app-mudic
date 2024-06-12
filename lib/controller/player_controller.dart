@@ -62,7 +62,16 @@ class PlayerControllerState extends State<PlayerController> {
   onPositionChanged(double newPosition) {}
 
   Future<String> pathForInApp() async {
-    return "";
+    String string = "";
+    audioCache = AudioCache();
+    if (audioCache != null) {
+      final uri = await audioCache!.load(song.path);
+      string = uri.toString();
+      return string;
+    } else {
+      return string;
+    }
+    return string;
   }
 
   setupPlayer() async {

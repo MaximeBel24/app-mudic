@@ -35,8 +35,8 @@ class MusicDatas {
     String album = "A beautiful mind";
     String thumb = "https://lastfm.freetls.fastly.net/i/u/500x500/51374f1973c5461f896009e9add49438.jpg";
     return [
-      Song(id: 5, title: 'The way you lie (ft. Rihanna)', album: album, path: "https://archive.org/download/Eminem_-_A_Beautiful_Mind/01%29%20Eminem%20-%20The%20Way%20You%20Lie%20Pt.%202%20%28Feat.%20Rihanna%29.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
-      Song(id: 6, title: "Roman's Revenge (Feat. Nicki Minaj)", album: album, path: "https://archive.org/download/Eminem_-_A_Beautiful_Mind/02%29%20Eminem%20-%20Roman%27s%20Revenge%20%28Feat.%20Nicki%20Minaj%29.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
+      Song(id: 5, title: 'Without Me', album: album, path: "https://archive.org/download/eminem-without-me-what-you-say/Without%20Me%20%EF%BC%8F%20Say%20What%20You%20Say/02-Without%20Me.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
+      Song(id: 6, title: "Lose Yourself", album: album, path: "https://archive.org/download/Sz41_41/Eminem%20-%20Lose%20Yourself%20%28Lyrics%29.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
       Song(id: 7, title: 'The Cypher', album: album, path: "https://archive.org/download/Eminem_-_A_Beautiful_Mind/03%29%20Eminem%20-%20The%20Cypher.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
       Song(id: 8, title: "No Love (Feat. Lil' Wayne)", album: album, path: "https://archive.org/download/Eminem_-_A_Beautiful_Mind/04%29%20Eminem%20-%20No%20Love%20%28Feat.%20Lil%27%20Wayne%29.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
       Song(id: 9, title: "Drop The Bomb On 'Em", album: album, path: "https://archive.org/download/Eminem_-_A_Beautiful_Mind/05%29%20Eminem%20-%20Drop%20The%20Bomb%20On%20%27Em.mp3", mediaType: type, thumb: thumb, genre: genre, artist: eminem),
