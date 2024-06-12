@@ -1,4 +1,6 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:learn_music/model/enums/media_type.dart';
 import 'package:learn_music/model/raw_model/song.dart';
 import 'package:learn_music/views/player_view.dart';
 
@@ -16,6 +18,8 @@ class PlayerController extends StatefulWidget {
 class PlayerControllerState extends State<PlayerController> {
 
   late Song song;
+  late AudioPlayer audioPlayer;
+  AudioCache? audioCache;
   Duration position = const Duration(seconds: 0);
   Duration maxDuration = const Duration(seconds: 0);
 
@@ -23,10 +27,12 @@ class PlayerControllerState extends State<PlayerController> {
   void initState() {
     super.initState();
     song = widget.songToPlay;
+    setupPlayer();
   }
 
   @override
   void dispose() {
+    clearPlayer();
     super.dispose();
   }
 
@@ -54,5 +60,22 @@ class PlayerControllerState extends State<PlayerController> {
   onForwardPressed(){}
 
   onPositionChanged(double newPosition) {}
+
+  Future<String> pathForInApp() async {
+    return "";
+  }
+
+  setupPlayer() async {
+    audioPlayer = AudioPlayer();
+    final url = (song.mediaType == MediaType.internet) ? song.path : await pathForInApp();
+    await audioPlayer.play(UrlSource(url));
+  }
+
+  clearPlayer() {
+    audioPlayer.stop();
+    audioPlayer.dispose();
+    if (audioCache != null) audioCache?.clearAll();
+    audioCache = null;
+  }
 
 }
