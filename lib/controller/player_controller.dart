@@ -16,6 +16,8 @@ class PlayerController extends StatefulWidget {
 class PlayerControllerState extends State<PlayerController> {
 
   late Song song;
+  Duration position = const Duration(seconds: 0);
+  Duration maxDuration = const Duration(seconds: 0);
 
   @override
   void initState() {
@@ -31,15 +33,26 @@ class PlayerControllerState extends State<PlayerController> {
   @override
   Widget build(BuildContext context) => PlayerView(
       song: song,
+      maxDuration: maxDuration,
+      position: position,
     onRepeatPressed: onRepeatPressed,
     onShufflePressed: onShufflePressed,
-    onPlayPausePressed: () {  },
-    onRewindPressed: () {  },
-    onForwardPressed: () {  },
+    onPlayPausePressed: onPlayPausePressed,
+    onRewindPressed: onRewindPressed,
+    onForwardPressed: onForwardPressed,
+    onPositionChanged: onPositionChanged,
   );
 
   onRepeatPressed(){}
 
   onShufflePressed(){}
+
+  onPlayPausePressed(){}
+
+  onRewindPressed(){}
+
+  onForwardPressed(){}
+
+  onPositionChanged(double newPosition) {}
 
 }

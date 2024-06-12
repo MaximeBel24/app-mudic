@@ -3,24 +3,33 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:learn_music/model/raw_model/song.dart';
 
 class PlayerView extends StatelessWidget {
+
    final Song song;
    final EdgeInsets padding = const EdgeInsets.all(8);
    final Container spacer = Container(width: 16);
    final Color bgDarkRed = const Color.fromRGBO(100, 11, 11, 0.75);
+   final Duration maxDuration;
+   final Duration position;
+
    final Function() onRepeatPressed;
    final Function() onShufflePressed;
    final Function() onPlayPausePressed;
    final Function() onRewindPressed;
    final Function() onForwardPressed;
+   final Function(double) onPositionChanged;
 
 
    PlayerView({
      required this.song,
+     required this.maxDuration,
+     required this.position,
+
      required this.onRepeatPressed,
      required this.onShufflePressed,
      required this.onPlayPausePressed,
      required this.onRewindPressed,
-     required this.onForwardPressed
+     required this.onForwardPressed,
+     required this.onPositionChanged
    });
 
    @override
@@ -81,7 +90,26 @@ class PlayerView extends StatelessWidget {
                       ],
                     ),
                     Column(
-
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(0.toString(), style: GoogleFonts.signika(fontSize: 18),),
+                            Text(position.inSeconds.toString(), style: GoogleFonts.signika(fontSize: 18),),
+                            Text(maxDuration.inSeconds.toString(), style: GoogleFonts.signika(fontSize: 18),),
+                          ],
+                        ),
+                        Slider(
+                          min: 0,
+                            max: maxDuration.inSeconds.toDouble(),
+                            value: position.inSeconds.toDouble(),
+                            onChanged: onPositionChanged,
+                          thumbColor: Colors.red,
+                          activeColor: Colors.red,
+                          inactiveColor: Colors.white,
+                        )
+                      ],
                     )
                   ],
                 ),
