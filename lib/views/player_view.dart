@@ -10,6 +10,8 @@ class PlayerView extends StatelessWidget {
    final Color bgDarkRed = const Color.fromRGBO(100, 11, 11, 0.75);
    final Duration maxDuration;
    final Duration position;
+   final bool shuffle;
+   final bool repeat;
 
    final Function() onRepeatPressed;
    final Function() onShufflePressed;
@@ -23,6 +25,8 @@ class PlayerView extends StatelessWidget {
      required this.song,
      required this.maxDuration,
      required this.position,
+     required this.shuffle,
+     required this.repeat,
 
      required this.onRepeatPressed,
      required this.onShufflePressed,
@@ -76,7 +80,7 @@ class PlayerView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        IconButton(onPressed: onRepeatPressed, icon: const Icon(Icons.repeat)),
+                        IconButton(onPressed: onRepeatPressed, icon: Icon((repeat) ? Icons.repeat_on_outlined : Icons.repeat),),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +90,7 @@ class PlayerView extends StatelessWidget {
                             Padding(padding: padding, child: IconButton(icon: const Icon(Icons.fast_forward), onPressed: onForwardPressed,),)
                           ],
                         ),
-                        IconButton(onPressed: onShufflePressed, icon: const Icon(Icons.shuffle))
+                        IconButton(onPressed: onShufflePressed, icon: Icon((shuffle) ? Icons.shuffle_on_outlined : Icons.shuffle))
                       ],
                     ),
                     Column(

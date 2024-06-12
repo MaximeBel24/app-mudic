@@ -22,6 +22,8 @@ class PlayerControllerState extends State<PlayerController> {
   AudioCache? audioCache;
   Duration position = const Duration(seconds: 0);
   Duration maxDuration = const Duration(seconds: 0);
+  bool playShuffle = false;
+  bool repeat = false;
 
   @override
   void initState() {
@@ -41,6 +43,9 @@ class PlayerControllerState extends State<PlayerController> {
       song: song,
       maxDuration: maxDuration,
       position: position,
+      shuffle: playShuffle,
+      repeat: repeat,
+
     onRepeatPressed: onRepeatPressed,
     onShufflePressed: onShufflePressed,
     onPlayPausePressed: onPlayPausePressed,
@@ -49,9 +54,17 @@ class PlayerControllerState extends State<PlayerController> {
     onPositionChanged: onPositionChanged,
   );
 
-  onRepeatPressed(){}
+  onRepeatPressed(){
+    setState(() {
+      repeat = !repeat;
+    });
+  }
 
-  onShufflePressed(){}
+  onShufflePressed(){
+    setState(() {
+      playShuffle = !playShuffle;
+    });
+  }
 
   onPlayPausePressed(){}
 
