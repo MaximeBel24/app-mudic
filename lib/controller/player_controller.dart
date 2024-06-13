@@ -1,27 +1,22 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_music/model/enums/media_type.dart';
 import 'package:learn_music/model/raw_model/song.dart';
 import 'package:learn_music/views/player_view.dart';
 
-class PlayerController extends StatefulWidget {
-
+class MyPlayerController extends StatefulWidget {
   final Song songToPlay;
   final List<Song> playlist;
   final Color backgroundColor;
 
-  const PlayerController({
-    required this.songToPlay,
-    required this.playlist,
-    required this.backgroundColor
-  });
-
+  const MyPlayerController({required this.songToPlay, required this.playlist, required this.backgroundColor});
   @override
-  PlayerControllerState createState() => PlayerControllerState();
+  MyPlayerControllerState createState() => MyPlayerControllerState();
 }
 
-class PlayerControllerState extends State<PlayerController> {
-
+class MyPlayerControllerState extends State<MyPlayerController> {
   late Song song;
   late AudioPlayer audioPlayer;
   AudioCache? audioCache;
@@ -29,7 +24,7 @@ class PlayerControllerState extends State<PlayerController> {
   Duration maxDuration = const Duration(seconds: 0);
   bool playShuffle = false;
   bool repeat = false;
-  IconData iconData = Icons.play_arrow;
+  IconData iconData = Icons.play_circle;
 
   @override
   void initState() {
@@ -46,41 +41,34 @@ class PlayerControllerState extends State<PlayerController> {
 
   @override
   Widget build(BuildContext context) => PlayerView(
-      song: song,
-      maxDuration: maxDuration,
-      position: position,
-      shuffle: playShuffle,
-      repeat: repeat,
-      playPauseIcon: iconData,
-    backgroundColor: widget.backgroundColor,
-
+    song: song,
     onRepeatPressed: onRepeatPressed,
     onShufflePressed: onShufflePressed,
-    onPlayPausePressed: onPlayPausePressed,
     onRewindPressed: onRewindPressed,
+    onPlayPausePressed: onPlayPausePressed,
     onForwardPressed: onForwardPressed,
     onPositionChanged: onPositionChanged,
+    position: position,
+    maxDuration: maxDuration,
+    repeat: repeat,
+    shuffle: playShuffle,
+    playPauseIcon: iconData,
+    backgroundColor: widget.backgroundColor,
   );
 
-  onRepeatPressed(){
-    setState(() {
-      repeat = !repeat;
-    });
-  }
-
-  onShufflePressed(){
-    setState(() {
-      playShuffle = !playShuffle;
-    });
+  onPositionChanged(double newPosition) {
+    final newDuration = Duration(seconds: newPosition.toInt());
+    audioPlayer.seek(newDuration);
   }
 
   onPlayPausePressed() async {
     final state = audioPlayer.state;
     switch (state) {
-      case PlayerState.disposed:
-        break;
       case PlayerState.completed:
-        onForwardPressed();
+        (repeat) ? audioPlayer.seek(const Duration(seconds: 0)): onForwardPressed();
+        break;
+      case PlayerState.disposed:
+        (repeat) ? audioPlayer.seek(const Duration(seconds: 0)): onForwardPressed();
         break;
       case PlayerState.stopped:
         setupPlayer();
@@ -94,16 +82,34 @@ class PlayerControllerState extends State<PlayerController> {
     }
   }
 
-  onRewindPressed(){}
-
-  onForwardPressed(){}
-
-  onPositionChanged(double newPosition) {
-    final newDuration = Duration(seconds: newPosition.toInt());
-    audioPlayer.seek(newDuration);
+  onRewindPressed() {
+    final newSong = (playShuffle) ? randomSong() : previousSong();
+    song = newSong;
+    clearPlayer();
+    setupPlayer();
   }
 
-  Future<String> pathForInApp() async {
+  onForwardPressed() {
+    final newSong = (playShuffle) ? randomSong() : nextSong();
+    song = newSong;
+    clearPlayer();
+    setupPlayer();
+  }
+
+
+  onRepeatPressed() {
+    setState(() {
+      repeat = !repeat;
+    });
+  }
+
+  onShufflePressed() {
+    setState(() {
+      playShuffle = !playShuffle;
+    });
+  }
+
+  Future<String> pathForInApp()  async {
     String string = "";
     audioCache = AudioCache();
     if (audioCache != null) {
@@ -113,25 +119,23 @@ class PlayerControllerState extends State<PlayerController> {
     } else {
       return string;
     }
-    return string;
   }
 
   onStateChange(PlayerState state) {
     setState(() {
       switch (state) {
-        case PlayerState.disposed:
+        case PlayerState.playing:
+          iconData = Icons.pause_circle;
+          break;
+        case PlayerState.paused:
+          iconData = Icons.play_circle;
           break;
         case PlayerState.completed:
           break;
+        case PlayerState.disposed:
+          break;
         case PlayerState.stopped:
-          iconData = Icons.play_arrow;
-          break;
-        case PlayerState.playing:
-          iconData = Icons.pause;
-          break;
-        case PlayerState.paused:
-          iconData = Icons.play_arrow;
-          break;
+          iconData = Icons.play_circle;
       }
     });
   }
@@ -164,4 +168,22 @@ class PlayerControllerState extends State<PlayerController> {
     audioCache = null;
   }
 
+  Song previousSong() {
+    final index = widget.playlist.indexWhere((song) => song.title == this.song.title);
+    final newIndex = (index == 0) ? widget.playlist.length - 1 : index - 1;
+    return widget.playlist[newIndex];
+
+  }
+
+  Song nextSong() {
+    final index = widget.playlist.indexWhere((song) => song.title == this.song.title);
+    final int newIndex = (index < widget.playlist.length - 1) ? index + 1 : 0;
+    return widget.playlist[newIndex];
+  }
+
+  Song randomSong() {
+    final int index = Random().nextInt(widget.playlist.length);
+    final newSong = widget.playlist[index];
+    return newSong;
+  }
 }

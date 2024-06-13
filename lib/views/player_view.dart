@@ -22,7 +22,6 @@ class PlayerView extends StatelessWidget {
    final Function() onForwardPressed;
    final Function(double) onPositionChanged;
 
-
    PlayerView({
      required this.song,
      required this.maxDuration,
@@ -43,6 +42,8 @@ class PlayerView extends StatelessWidget {
    @override
   Widget build(BuildContext context) {
      Size size = MediaQuery.of(context).size;
+
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -142,6 +143,6 @@ class PlayerView extends StatelessWidget {
      int seconds = duration.inSeconds.remainder(60);
      String minutesStr = (minutes < 10) ? "0$minutes" : minutes.toString();
      String secondsStr = (minutes < 10) ? "0$seconds" : seconds.toString();
-     return minutesStr + ":" + secondsStr;
+     return "$minutesStr:$secondsStr";
   }
 }
