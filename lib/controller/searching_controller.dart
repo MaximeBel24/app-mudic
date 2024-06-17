@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learn_music/model/services/music_handler.dart';
+import 'package:learn_music/model/services/shared_handler.dart';
 import 'package:learn_music/views/cells/classic_tile.dart';
 
 import '../model/raw_model/song.dart';
@@ -22,6 +23,7 @@ class SearchingControllerState extends State<SearchingController> {
     // TODO: implement initState
     super.initState();
     textEditingController = TextEditingController();
+    getSharedPref();
   }
 
   @override
@@ -75,7 +77,11 @@ class SearchingControllerState extends State<SearchingController> {
   }
 
   Widget emptyWidget() {
-    return Container(color: Colors.blueGrey,);
+    return ListView.separated(
+        itemBuilder: itemBuilder,
+        separatorBuilder: separatorBuilder,
+        itemCount: itemCount
+    );
   }
 
   Widget onSearchWidget() {
@@ -99,5 +105,13 @@ class SearchingControllerState extends State<SearchingController> {
 
   save(String string) {
 
+  }
+
+  getSharedPref() {
+    SharedHandler().getList().then((newList) => {
+      setState(() {
+        lastSearchedSongs = newList;
+      })
+    });
   }
 }
