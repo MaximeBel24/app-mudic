@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:learn_music/model/services/music_handler.dart';
+import 'package:learn_music/views/cells/classic_tile.dart';
 
 import '../model/raw_model/song.dart';
 
@@ -77,7 +79,11 @@ class SearchingControllerState extends State<SearchingController> {
   }
 
   Widget onSearchWidget() {
-    return Container(color: Colors.yellowAccent,);
+    return ListView.separated(
+        itemBuilder: (context, index) => ClassicTile(playlist: searchResults, index: index),
+        separatorBuilder: ((context, index) => const Divider()),
+        itemCount: searchResults.length
+    );
   }
 
   onPressed() {
@@ -85,8 +91,9 @@ class SearchingControllerState extends State<SearchingController> {
   }
 
   search(String string) {
+    final result = MusicHandler().research(string);
     setState(() {
-      
+      searchResults = result;
     });
   }
 

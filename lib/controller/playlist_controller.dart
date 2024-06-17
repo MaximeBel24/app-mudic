@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:learn_music/controller/player_controller.dart';
 import 'package:learn_music/model/enums/playlist.dart';
 import 'package:learn_music/model/raw_model/song.dart';
+import 'package:learn_music/views/cells/classic_tile.dart';
 
 class PlayListController extends StatelessWidget {
   final List<Song> playlist;
@@ -26,26 +27,7 @@ class PlayListController extends StatelessWidget {
             topView(MediaQuery.of(context).size),
             Expanded(
               child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Image.network(playlist[index].thumb),
-                      title: Text(playlist[index].title),
-                      trailing: Icon(Icons.arrow_right),
-                      onTap: () {
-                        final route  = MaterialPageRoute(builder: ((context) => MyPlayerController(
-                          songToPlay: playlist[index],
-                          playlist: playlist,
-                          backgroundColor: Color.fromRGBO(
-                              Random().nextInt(256),
-                              Random().nextInt(256),
-                              Random().nextInt(256),
-                              1),
-                        )
-                        ));
-                        Navigator.push(context, route);
-                      },
-                    ) ;
-                  },
+                  itemBuilder: (context, index) => ClassicTile(playlist: playlist, index: index),
                   separatorBuilder: ((context, index) => const Divider()),
                   itemCount: playlist.length
               ),
