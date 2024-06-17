@@ -46,14 +46,14 @@ class SearchingControllerState extends State<SearchingController> {
                         controller: textEditingController,
                         onChanged: search,
                         onSubmitted: save,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Entrez quelque chose",
                         ),
                       )
                   ),
                   IconButton(
                       onPressed: onPressed,
-                      icon: Icon(Icons.send)
+                      icon: const Icon(Icons.send)
                   )
                 ],
               ),
@@ -78,9 +78,16 @@ class SearchingControllerState extends State<SearchingController> {
 
   Widget emptyWidget() {
     return ListView.separated(
-        itemBuilder: itemBuilder,
-        separatorBuilder: separatorBuilder,
-        itemCount: itemCount
+        itemBuilder: (context, index) {
+          final String value = lastSearchedSongs[index];
+          return ListTile(
+            title: Text(value),
+            onTap: (() => onTap(value)),
+            onLongPress: (() => remove(value)),
+          );
+        },
+        separatorBuilder: ((context, index) => const Divider()),
+        itemCount: lastSearchedSongs.length
     );
   }
 
@@ -92,8 +99,16 @@ class SearchingControllerState extends State<SearchingController> {
     );
   }
 
-  onPressed() {
+  onTap(String value) {
+    textEditingController.text = value;
+    search(value);
+  }
 
+  closeKeyboard() => FocusScope.of(context).requestFocus(FocusNode());
+
+  onPressed() {
+    closeKeyboard();
+    if (textEditingController.text != "") save(textEditingController.text);
   }
 
   search(String string) {
@@ -103,8 +118,8 @@ class SearchingControllerState extends State<SearchingController> {
     });
   }
 
-  save(String string) {
-
+  save(String value) {
+    SharedHandler().addItemList(value).then((succes) => getSharedPref());
   }
 
   getSharedPref() {
@@ -113,5 +128,9 @@ class SearchingControllerState extends State<SearchingController> {
         lastSearchedSongs = newList;
       })
     });
+  }
+
+  remove(String value) {
+    SharedHandler().removeItemToList(value).then((success) => getSharedPref() );
   }
 }
